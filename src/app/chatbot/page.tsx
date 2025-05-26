@@ -10,12 +10,18 @@ export default function ChatbotPage() {
     const newMessages = [...messages, { role: 'user', content: input }];
     setMessages(newMessages);
     setInput('');
-
-    const response = await axios.post('/api/chat', { messages: newMessages });
-
-    setMessages([...newMessages, { role: 'assistant', content: response.data.reply }]);
+  
+    try {
+      type ChatResponse = { reply: string };
+      const response = await axios.post<ChatResponse>('/api/chat', { messages: newMessages });
+  
+      setMessages([...newMessages, { role: 'assistant', content: response.data.reply }]);
+    } catch (err) {
+      setMessages([...newMessages, { role: 'assistant', content: 'Oops! Something went wrong.' }]);
+      console.error(err);
+    }
   };
-
+  
   return (
     <div className="p-6">
       <div className="h-[70vh] overflow-y-auto space-y-2 bg-gray-800 p-4 rounded">
