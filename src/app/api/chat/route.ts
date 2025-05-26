@@ -1,14 +1,18 @@
-import { OpenAI } from 'openai';
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// app/api/chat/route.ts
+import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  try {
+    const { messages } = await req.json();
 
-  const completion = await openai.chat.completions.create({
-    model: 'gpt-4',
-    messages: messages,
-  });
+    // Example response — replace with actual OpenAI or chatbot logic
+    const userMessage = messages?.[messages.length - 1]?.content || '';
 
-  return Response.json({ reply: completion.choices[0].message.content });
+    const reply = `You asked: "${userMessage}". Xenial Intelligence Ltd. specializes in AI-powered software.`;
+
+    return NextResponse.json({ reply });
+  } catch (error) {
+    console.error('Chat API Error:', error);
+    return NextResponse.json({ reply: 'Sorry, something went wrong.' }, { status: 500 });
+  }
 }
