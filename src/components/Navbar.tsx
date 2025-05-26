@@ -8,7 +8,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-primary text-white fixed w-full z-50 shadow-md">
+    <nav className="bg-red-900 text-white fixed w-full z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold tracking-wide">
           Xenial Intelligence
@@ -56,7 +56,7 @@ export default function Navbar() {
           initial={{ height: 0 }}
           animate={{ height: "auto" }}
           exit={{ height: 0 }}
-          className="md:hidden bg-primary px-6 pb-4 space-y-3 text-lg"
+          className="md:hidden bg-red-900 px-6 pb-4 space-y-3 text-lg"
         >
           <Link href="/" onClick={() => setMenuOpen(false)} className="block hover:text-accent transition">Home</Link>
           <Link href="/about" onClick={() => setMenuOpen(false)} className="block hover:text-accent transition">About</Link>

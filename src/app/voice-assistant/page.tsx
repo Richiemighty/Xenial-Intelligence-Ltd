@@ -22,16 +22,20 @@ export default function VoiceAssistant() {
 
   const handleStop = async () => {
     SpeechRecognition.stopListening();
-
+  
     if (transcript.trim()) {
       const userMessage = { role: 'user', content: transcript.trim() };
       const systemMessage = { role: 'assistant', content: botReply };
-
+  
       try {
-        const response = await axios.post('/api/chat', {
-          messages: [systemMessage, userMessage]
+        // Define the expected structure of the response
+        type ChatResponse = { reply: string };
+  
+        // Pass the type to axios.post
+        const response = await axios.post<ChatResponse>('/api/chat', {
+          messages: [systemMessage, userMessage],
         });
-
+  
         const reply = response.data.reply;
         setBotReply(reply);
         speak(reply);
@@ -42,6 +46,7 @@ export default function VoiceAssistant() {
       }
     }
   };
+  
 
   return (
     <div className="p-6 text-white">
