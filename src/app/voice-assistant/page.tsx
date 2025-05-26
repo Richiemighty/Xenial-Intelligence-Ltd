@@ -39,7 +39,7 @@ export default function VoiceAssistant() {
         const reply = response.data.reply;
         setBotReply(reply);
         speak(reply);
-      } catch (error) {
+      } catch {
         const errorMsg = 'Sorry, something went wrong.';
         setBotReply(errorMsg);
         speak(errorMsg);
